@@ -1,7 +1,7 @@
 // Runs on GitHub Actions every hour. Checks each site and appends the result to status.json.
 const fs = require("fs");
 
-/* ====== CONFIG: edit this ====== */
+
 const SITES = [
   { name: "JohnHost Website", url: "https://johndinglesin.github.io/JohnHostWebsite" },
 ];
