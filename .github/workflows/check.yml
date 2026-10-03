@@ -2,7 +2,7 @@ name: Check sites
 
 on:
   schedule:
-    - cron: "0 * * * *"     # every hour
+    - cron: "23 * * * *"    # every hour at :23 (off-peak minutes are more reliable than :00)
   workflow_dispatch:         # lets you run it manually from the Actions tab
 
 permissions:
