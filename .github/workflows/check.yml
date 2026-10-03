@@ -7,7 +7,12 @@ on:
 
 permissions:
   contents: write            # lets the bot commit status.json
-  pages: write               # lets the bot redeploy GitHub Pages
+  pages: write               # lets the workflow deploy to GitHub Pages
+  id-token: write            # required by the Pages deploy action
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   check:
@@ -18,14 +23,27 @@ jobs:
         with:
           node-version: 20
       - run: node check.js
-      - name: Save results and redeploy site
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Save results
         run: |
           git config user.name "status-bot"
           git config user.email "status-bot@users.noreply.github.com"
           git add status.json
           git commit -m "Update status" || { echo "No changes to save"; exit 0; }
           git push
-          # Pushes made by the bot don't trigger a Pages rebuild on their own, so request one
-          gh api -X POST "repos/${{ github.repository }}/pages/builds"
+
+  deploy:
+    needs: check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}   # get the commit the bot just pushed
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
