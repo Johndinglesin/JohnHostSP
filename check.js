@@ -3,7 +3,7 @@ const fs = require("fs");
 
 /* ====== CONFIG: edit this ====== */
 const SITES = [
-  { name: "JohnHost Website", url: "https://YOUR-SITE-URL/" },
+  { name: "JohnHost Website", url: "https://johndinglesin.github.io/JohnHostWebsite" },
 ];
 const MARKER = "status-heartbeat";   // text the heartbeat snippet puts in your index.html
 const TIMEOUT_MS = 15000;
