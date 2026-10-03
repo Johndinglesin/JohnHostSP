@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status — JohnHost</title>
+  <meta name="description" content="Live status of JohnHost services, checked every hour." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
+  <style>
+    .badge-down{color:var(--danger);background:rgba(229,83,75,.12)}
+    .badge-down .b-dot{background:var(--danger)}
+    .badge-wait{color:var(--muted);background:rgba(155,163,171,.12)}
+    .badge-wait .b-dot{background:var(--muted)}
+    .console-row .v.down,.console .traffic.down{color:var(--danger)}
+    .hist{display:flex;gap:2px;height:20px;min-width:240px}
+    .hist i{flex:1;min-width:3px;border-radius:1px;background:var(--line-2)}
+    .hist i.up{background:var(--ok)}
+    .hist i.down{background:var(--danger)}
+    .svc-url{display:block;color:var(--muted);font-size:.78rem;font-weight:400}
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="logo-nav.png" alt="JohnHost logo" />
+        <span class="brand-name">John<span class="accent">Host</span></span>
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="rules.html">Rules</a></li>
+          <li><a href="staff.html">Staff</a></li>
+          <li><a href="status.html" class="active" aria-current="page">Status</a></li>
+          <li class="nav-cta"><a href="apply.html" class="btn btn-primary btn-sm">Apply now</a></li>
+        </ul>
+      </nav>
+
+      <span id="stock-widget-anchor"></span>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>JohnHost <span class="accent">status</span></h1>
+          <p class="tagline">
+            Live availability of JohnHost services. Each service is checked
+            automatically every hour and marked down if it fails to respond.
+          </p>
+          <div class="cta">
+            <a href="#services" class="btn btn-primary btn-lg">View services</a>
+            <a href="mailto:JohnHost-support@proton.me" class="btn btn-ghost btn-lg">Contact support</a>
+          </div>
+        </div>
+
+        <div class="console" aria-label="Overall status summary">
+          <div class="console-head">
+            <span class="title">JOHNHOST — STATUS</span>
+            <span class="traffic" id="overallTag">LOADING</span>
+          </div>
+          <div class="console-body">
+            <div class="console-row">
+              <span class="k">Overall</span>
+              <span class="v" id="overallText">Loading…</span>
+            </div>
+            <div class="console-row">
+              <span class="k">Last checked</span>
+              <span class="v" id="lastChecked">—</span>
+            </div>
+            <div class="console-row">
+              <span class="k">Check interval</span>
+              <span class="v">Every hour</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Live checks</div>
+            <h2>Services</h2>
+            <p>Bars show the most recent hourly checks, oldest on the left. Hover a bar for its time.</p>
+          </div>
+        </div>
+
+        <table class="spec-table">
+          <caption id="tableCaption">Service availability.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Service</th>
+              <th scope="col">Status</th>
+              <th scope="col">Uptime</th>
+              <th scope="col">Recent checks</th>
+            </tr>
+          </thead>
+          <tbody id="rows">
+            <tr><td colspan="4" class="loc">Loading status…</td></tr>
+          </tbody>
+        </table>
+
+        <p class="note">
+          A service is marked <b>Running</b> when it answers the hourly check and
+          returns the JohnHost heartbeat. If it times out, errors, or the heartbeat
+          is missing, it is marked <b>Down</b>. Uptime covers the checks shown on record.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <img class="brand-logo" src="logo-nav.png" alt="JohnHost logo" width="28" height="28" />
+          <span class="brand-name">John<span class="accent">Host</span></span>
+        </a>
+        <p class="about">
+          An independent, free-of-charge Minecraft server host. Not affiliated with
+          Mojang or Microsoft.
+        </p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="apply.html">Apply</a></li>
+          <li><a href="rules.html">Rules</a></li>
+          <li><a href="staff.html">Staff</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="status.html">Status</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>JohnHost — free Minecraft server hosting.</span>
+      <span>Support: <a href="mailto:JohnHost-support@proton.me">JohnHost-support@proton.me</a></span>
+    </div>
+  </footer>
+
+  <script src="js/config.js?v=3"></script>
+  <script src="js/main.js?v=3"></script>
+
+  <script>
+  (function () {
+    var SHOW = 48; // recent checks shown per service
+
+    function timeAgo(t) {
+      var m = Math.round((Date.now() - t) / 60000);
+      if (m < 1) return "just now";
+      if (m < 60) return m + " min ago";
+      var h = Math.floor(m / 60);
+      return h + (h === 1 ? " hour ago" : " hours ago");
+    }
+    function el(tag, cls, text) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    }
+
+    fetch("status.json?" + Date.now())
+      .then(function (r) { return r.json(); })
+      .then(render)
+      .catch(function () {
+        document.getElementById("overallTag").textContent = "ERROR";
+        document.getElementById("overallText").textContent = "Could not load status data";
+        document.getElementById("rows").innerHTML =
+          '<tr><td colspan="4" class="loc">Status data is unavailable right now.</td></tr>';
+      });
+
+    function render(data) {
+      var rows = document.getElementById("rows");
+      rows.innerHTML = "";
+      var entries = Object.keys(data.sites || {}).map(function (u) { return [u, data.sites[u]]; });
+      var down = 0, known = 0;
+
+      entries.forEach(function (pair) {
+        var url = pair[0], rec = pair[1];
+        var hist = rec.history || [];
+        var last = hist[hist.length - 1];
+        var cls = last ? (last.ok ? "ok" : "down") : "wait";
+        var label = last ? (last.ok ? "Running" : "Down") : "Pending";
+        if (last) { known++; if (!last.ok) down++; }
+
+        var upCount = hist.filter(function (h) { return h.ok; }).length;
+        var uptime = hist.length ? (upCount / hist.length * 100).toFixed(1) + "%" : "—";
+
+        var tr = el("tr");
+        var tdName = el("td", "node", rec.name || url);
+        tdName.appendChild(el("span", "svc-url", url));
+
+        var tdStatus = el("td");
+        var badge = el("span", "badge badge-" + cls);
+        var dot = el("span", "b-dot"); dot.setAttribute("aria-hidden", "true");
+        badge.appendChild(dot);
+        badge.appendChild(document.createTextNode(label));
+        tdStatus.appendChild(badge);
+
+        var tdUp = el("td", "mono", uptime);
+
+        var tdHist = el("td");
+        var bars = el("div", "hist");
+        bars.setAttribute("aria-label", "Last " + SHOW + " checks");
+        for (var i = 0; i < SHOW; i++) {
+          var h = hist[hist.length - SHOW + i];
+          var b = el("i", h ? (h.ok ? "up" : "down") : "");
+          if (h) b.title = new Date(h.t).toLocaleString() + (h.ok ? " — running" : " — down");
+          bars.appendChild(b);
+        }
+        tdHist.appendChild(bars);
+
+        tr.appendChild(tdName); tr.appendChild(tdStatus); tr.appendChild(tdUp); tr.appendChild(tdHist);
+        rows.appendChild(tr);
+      });
+
+      if (!entries.length) {
+        rows.innerHTML = '<tr><td colspan="4" class="loc">No services are being monitored yet.</td></tr>';
+      }
+
+      var tag = document.getElementById("overallTag");
+      var txt = document.getElementById("overallText");
+      if (!known) { tag.textContent = "PENDING"; txt.textContent = "Waiting for first check"; }
+      else if (!down) { tag.textContent = "OPERATIONAL"; txt.textContent = "All systems running"; txt.className = "v ok"; }
+      else { tag.textContent = "DEGRADED"; tag.className = "traffic down";
+             txt.textContent = down + " of " + entries.length + " down"; txt.className = "v down"; }
+
+      document.getElementById("lastChecked").textContent = data.lastRun ? timeAgo(data.lastRun) : "—";
+    }
+  })();
+  </script>
+
+  <div id="cookie-anchor"></div>
+</body>
+</html>
