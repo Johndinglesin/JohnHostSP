@@ -6,7 +6,8 @@ on:
   workflow_dispatch:         # lets you run it manually from the Actions tab
 
 permissions:
-  contents: write
+  contents: write            # lets the bot commit status.json
+  pages: write               # lets the bot redeploy GitHub Pages
 
 jobs:
   check:
@@ -17,10 +18,14 @@ jobs:
         with:
           node-version: 20
       - run: node check.js
-      - name: Save results
+      - name: Save results and redeploy site
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "status-bot"
           git config user.email "status-bot@users.noreply.github.com"
           git add status.json
-          git commit -m "Update status" || exit 0
+          git commit -m "Update status" || { echo "No changes to save"; exit 0; }
           git push
+          # Pushes made by the bot don't trigger a Pages rebuild on their own, so request one
+          gh api -X POST "repos/${{ github.repository }}/pages/builds"
