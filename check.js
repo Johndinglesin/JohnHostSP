@@ -3,8 +3,8 @@ const fs = require("fs");
 
 
 const SITES = [
-  { name: "JohnHost Website", url: "https://johndinglesin.github.io/JohnHostWebsite" },
-  { name: "JohnHost Status Site", url: "https://johndinglesin.github.io/JohnHostSP" },
+  { name: "JohnHost Website", url: "https://johnhost.win/" },
+  { name: "JohnHost Status Site", url: "https://status.johnhost.win/" },
 ];
 const MARKER = "status-heartbeat";   // text the heartbeat snippet puts in your index.html
 const TIMEOUT_MS = 15000;
